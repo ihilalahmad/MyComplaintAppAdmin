@@ -9,4 +9,6 @@
     <string name="enter_password">Password</string>
     <string name="enter_dept_id">Department Id</string>
     <string name="complaint_management_login_text">Complaint Management Department Login</string>
+    <string name="enter_dept_name">Department name</string>
+    <string name="logout">Logout</string>
 </resources>

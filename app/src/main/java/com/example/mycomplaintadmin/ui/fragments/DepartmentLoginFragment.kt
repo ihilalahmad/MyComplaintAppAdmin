@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.mycomplaintadmin.R
 import com.example.mycomplaintadmin.databinding.FragmentDepartmentLoginBinding
 import com.example.mycomplaintadmin.model.DeptModel
+import com.example.mycomplaintadmin.utils.AppPreferences
 import com.google.firebase.database.*
 
 
@@ -16,6 +18,13 @@ class DepartmentLoginFragment : Fragment() {
 
     private lateinit var binding: FragmentDepartmentLoginBinding
     private lateinit var databaseReference: DatabaseReference
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val isUserLoggedIn = AppPreferences.getLoginStatus(requireContext())
+        if (isUserLoggedIn) {
+            AppPreferences.setLoginState(requireContext(), false)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,17 +50,20 @@ class DepartmentLoginFragment : Fragment() {
 
     private fun loginDepartmentFromFirebase() {
 
+        val deptName = binding.etDeptName.text.toString()
         val deptId = binding.etDeptId.text.toString()
         val deptPassword = binding.etDeptPassword.text.toString()
 
-        databaseReference.child(deptId).addValueEventListener(object : ValueEventListener {
+        databaseReference.child(deptName).addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 val deptModel : DeptModel = snapshot.getValue(DeptModel::class.java)!!
 
-                if (deptPassword == deptModel.deptPassword) {
+                if (deptId == deptModel.deptId && deptPassword == deptModel.deptPassword) {
                     Toast.makeText(context,"Logged In", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.navigate_login_to_home)
+                    AppPreferences.setLoginState(requireContext(), true)
                 }else {
                     Toast.makeText(context,"Wrong password or id", Toast.LENGTH_SHORT).show()
                 }
