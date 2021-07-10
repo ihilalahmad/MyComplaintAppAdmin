@@ -10,6 +10,9 @@
         android:name="com.example.mycomplaintadmin.ui.fragments.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
+        <argument
+            android:name="deptName"
+            app:argType="string"/>
         <action
             android:id="@+id/navigate_home_to_login"
             app:destination="@id/departmentLoginFragment"

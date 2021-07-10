@@ -2,8 +2,8 @@ package com.example.mycomplaintadmin.ui.activities
 
 import android.os.Bundle
 import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.mycomplaintadmin.R
 import com.example.mycomplaintadmin.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
         initialInit()
 
     }
@@ -36,10 +39,10 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home,
-                R.id.departmentLoginFragment
-            )
+                setOf(
+                        R.id.navigation_home,
+                        R.id.departmentLoginFragment
+                )
         )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -62,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        navController.addOnDestinationChangedListener {_, destination, _ ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id) {
                 R.id.departmentLoginFragment -> finish()
             }

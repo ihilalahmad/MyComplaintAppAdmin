@@ -23,6 +23,7 @@ class DepartmentLoginFragment : Fragment() {
         val isUserLoggedIn = AppPreferences.getLoginStatus(requireContext())
         if (isUserLoggedIn) {
             AppPreferences.setLoginState(requireContext(), false)
+            AppPreferences.setDeptName(requireContext(), "")
         }
     }
 
@@ -62,8 +63,15 @@ class DepartmentLoginFragment : Fragment() {
 
                 if (deptId == deptModel.deptId && deptPassword == deptModel.deptPassword) {
                     Toast.makeText(context,"Logged In", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.navigate_login_to_home)
+
+                    //passing department in arguments.
+                    val bundle = Bundle().apply {
+                        putSerializable("deptName", deptName)
+                    }
+                    findNavController().navigate(R.id.navigate_login_to_home,bundle)
                     AppPreferences.setLoginState(requireContext(), true)
+                    AppPreferences.setDeptName(requireContext(), deptName)
+
                 }else {
                     Toast.makeText(context,"Wrong password or id", Toast.LENGTH_SHORT).show()
                 }
