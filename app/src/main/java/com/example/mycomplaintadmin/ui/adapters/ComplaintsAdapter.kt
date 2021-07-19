@@ -29,11 +29,14 @@ class ComplaintsAdapter(
             tvContactNumber.text = complaintList[position].userContact
             tvComplaintTitle.text = complaintList[position].subject
             tvComplaintDetails.text = complaintList[position].message
+
+            tvOpenComplaint.setOnClickListener {
+                complaintClickListener.onComplaintClick(complaintList[position])
+            }
         }
     }
 
     override fun getItemCount() = complaintList.size
-
 
     inner class ViewHolder(val binding: ComplaintsItemBinding): RecyclerView.ViewHolder(binding.root)
 }

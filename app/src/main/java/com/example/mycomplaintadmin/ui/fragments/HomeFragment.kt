@@ -84,6 +84,6 @@ class HomeFragment : Fragment(), ComplaintClickListener {
     }
 
     override fun onComplaintClick(complaintsModel: ComplaintsModel) {
-        TODO("Not yet implemented")
+        findNavController().navigate(R.id.navigate_home_to_chat)
     }
 }

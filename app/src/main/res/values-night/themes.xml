@@ -3,7 +3,7 @@
     <style name="Theme.MyComplaintAdmin" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/colorDarkBackground</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -29,6 +29,35 @@
     <style name="YahooSans">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:includeFontPadding">false</item>
+    </style>
+
+
+    <!-- custom style for message items -->
+    <style name="MessageCardViewStyleReceived" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_received_corners</item>
+    </style>
+
+
+    <style name="ShapeAppearanceOverlay_card_custom_received_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">8dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">8dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
+    </style>
+
+    <!-- custom style for message items -->
+    <style name="MessageCardViewStyleSent" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_sent_corners</item>
+    </style>
+
+
+    <style name="ShapeAppearanceOverlay_card_custom_sent_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">8dp</item>
+        <item name="cornerSizeBottomRight">16dp</item>
+        <item name="cornerSizeBottomLeft">8dp</item>
     </style>
 
 </resources>

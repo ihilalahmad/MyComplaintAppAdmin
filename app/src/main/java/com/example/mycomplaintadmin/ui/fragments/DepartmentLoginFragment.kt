@@ -51,37 +51,70 @@ class DepartmentLoginFragment : Fragment() {
 
     private fun loginDepartmentFromFirebase() {
 
-        val deptName = binding.etDeptName.text.toString()
-        val deptId = binding.etDeptId.text.toString()
-        val deptPassword = binding.etDeptPassword.text.toString()
+        binding.loginProgressBar.visibility = View.VISIBLE
 
-        databaseReference.child(deptName).addValueEventListener(object : ValueEventListener {
+        if (isFormValidate()) {
 
-            override fun onDataChange(snapshot: DataSnapshot) {
+            binding.btnLogin.visibility = View.GONE
 
-                val deptModel : DeptModel = snapshot.getValue(DeptModel::class.java)!!
+            val deptName = binding.etDeptName.text.toString()
+            val deptId = binding.etDeptId.text.toString()
+            val deptPassword = binding.etDeptPassword.text.toString()
 
-                if (deptId == deptModel.deptId && deptPassword == deptModel.deptPassword) {
-                    Toast.makeText(context,"Logged In", Toast.LENGTH_SHORT).show()
+            databaseReference.child(deptName).addValueEventListener(object : ValueEventListener {
 
-                    //passing department in arguments.
-                    val bundle = Bundle().apply {
-                        putSerializable("deptName", deptName)
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    val deptModel : DeptModel = snapshot.getValue(DeptModel::class.java)!!
+
+                    if (deptId == deptModel.deptId && deptPassword == deptModel.deptPassword) {
+                        Toast.makeText(context,"Logged In", Toast.LENGTH_SHORT).show()
+                        binding.loginProgressBar.visibility = View.GONE
+                        //passing department in arguments.
+                        val bundle = Bundle().apply {
+                            putSerializable("deptName", deptName)
+                        }
+                        findNavController().navigate(R.id.navigate_login_to_home,bundle)
+                        AppPreferences.setLoginState(requireContext(), true)
+                        AppPreferences.setDeptName(requireContext(), deptName)
+
+                    }else {
+                        binding.loginProgressBar.visibility = View.GONE
+                        binding.btnLogin.visibility = View.VISIBLE
+                        Toast.makeText(context,"Wrong password or id", Toast.LENGTH_SHORT).show()
                     }
-                    findNavController().navigate(R.id.navigate_login_to_home,bundle)
-                    AppPreferences.setLoginState(requireContext(), true)
-                    AppPreferences.setDeptName(requireContext(), deptName)
-
-                }else {
-                    Toast.makeText(context,"Wrong password or id", Toast.LENGTH_SHORT).show()
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+                override fun onCancelled(error: DatabaseError) {
+                    binding.loginProgressBar.visibility = View.GONE
+                    binding.btnLogin.visibility = View.VISIBLE
+                }
 
-        })
+            })
+        }
+    }
+
+    private fun isFormValidate() : Boolean {
+
+        if (binding.etDeptName.text.toString().isEmpty()) {
+            binding.etDeptName.error = "Please enter dept name"
+            binding.etDeptName.requestFocus()
+            return false
+        }
+
+        if (binding.etDeptId.text.toString().isEmpty()) {
+            binding.etDeptId.error = "Please enter dept id"
+            binding.etDeptId.requestFocus()
+            return false
+        }
+
+        if (binding.etDeptPassword.text.toString().isEmpty()) {
+            binding.etDeptPassword.error = "Please enter password"
+            binding.etDeptPassword.requestFocus()
+            return false
+        }
+
+        return true
     }
 
 }
