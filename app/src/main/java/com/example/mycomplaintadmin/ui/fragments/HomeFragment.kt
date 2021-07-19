@@ -70,7 +70,7 @@ class HomeFragment : Fragment(), ComplaintClickListener {
                             complaintsSnap.getValue(ComplaintsModel::class.java)!!
                         complaintsList.add(complaints)
                     }
-                    adapter = ComplaintsAdapter(complaintsList, this@HomeFragment)
+                    adapter = ComplaintsAdapter(complaintsList, this@HomeFragment, deptName)
                     binding.complaintsRecyclerView.adapter = adapter
                     binding.progressBar.visibility = View.GONE
                 }
@@ -84,6 +84,10 @@ class HomeFragment : Fragment(), ComplaintClickListener {
     }
 
     override fun onComplaintClick(complaintsModel: ComplaintsModel) {
-        findNavController().navigate(R.id.navigate_home_to_chat)
+        val bundle = Bundle().apply {
+            putSerializable("complaint", complaintsModel)
+            putSerializable("deptName", deptName)
+        }
+        findNavController().navigate(R.id.navigate_home_to_chat, bundle)
     }
 }

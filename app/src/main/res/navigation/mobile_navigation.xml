@@ -36,7 +36,16 @@
         android:id="@+id/chatFragment"
         android:name="com.example.mycomplaintadmin.ui.fragments.ChatFragment"
         android:label="Chat"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat">
 
+        <argument
+            android:name="complaint"
+            app:argType="com.example.mycomplaintadmin.model.ComplaintsModel"/>
+
+        <argument
+            android:name="deptName"
+            app:argType="string"/>
+
+    </fragment>
 
 </navigation>
