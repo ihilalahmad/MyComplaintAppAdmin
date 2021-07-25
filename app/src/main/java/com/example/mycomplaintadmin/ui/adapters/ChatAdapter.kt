@@ -7,8 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mycomplaintadmin.R
 import com.example.mycomplaintadmin.model.ChatModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 class ChatAdapter(private val userId: String, private val chatList: ArrayList<ChatModel>) :
     RecyclerView.Adapter<ChatAdapter.ViewHolder>() {

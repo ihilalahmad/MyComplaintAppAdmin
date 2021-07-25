@@ -59,16 +59,19 @@ class HomeFragment : Fragment(), ComplaintClickListener {
         binding.progressBar.visibility = View.VISIBLE
 
         FirebaseDatabase.getInstance()
-            .getReference("Departments")
-            .child(deptName)
-            .child("Complaints")
+            .getReference("Complaints")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     complaintsList.clear()
+
                     for (complaintsSnap in snapshot.children) {
+
                         val complaints: ComplaintsModel =
                             complaintsSnap.getValue(ComplaintsModel::class.java)!!
-                        complaintsList.add(complaints)
+
+                        if (complaints.deptName == deptName) {
+                            complaintsList.add(complaints)
+                        }
                     }
                     adapter = ComplaintsAdapter(complaintsList, this@HomeFragment, deptName)
                     binding.complaintsRecyclerView.adapter = adapter

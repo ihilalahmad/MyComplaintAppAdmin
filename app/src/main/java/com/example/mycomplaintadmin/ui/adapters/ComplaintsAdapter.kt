@@ -29,8 +29,8 @@ class ComplaintsAdapter(
             tvDeptName.text = " DEPARTMENT | $deptName "
             tvUserName.text = complaintList[position].userName
             tvContactNumber.text = complaintList[position].userContact
-            tvComplaintTitle.text = complaintList[position].subject
-            tvComplaintDetails.text = complaintList[position].message
+            tvComplaintTitle.text = complaintList[position].complaintSubject
+            tvComplaintDetails.text = complaintList[position].complaintDetails
 
             tvOpenComplaint.setOnClickListener {
                 complaintClickListener.onComplaintClick(complaintList[position])

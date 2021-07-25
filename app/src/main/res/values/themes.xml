@@ -35,7 +35,6 @@
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_received_corners</item>
     </style>
 
-
     <style name="ShapeAppearanceOverlay_card_custom_received_corners" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">8dp</item>
@@ -48,7 +47,6 @@
     <style name="MessageCardViewStyleSent" parent="@style/Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_sent_corners</item>
     </style>
-
 
     <style name="ShapeAppearanceOverlay_card_custom_sent_corners" parent="">
         <item name="cornerFamily">rounded</item>
